@@ -30,11 +30,12 @@ void buildSA() {
 
 char p[N];
 int m, l, h;
-bool cmp(int i, int ign) {return strncmp(t+sa[i], p, m);}
+bool cmpl(int i, int ign) {return strncmp(t+i, p, m) < 0;}
+bool cmph(int ign, int i) {return strncmp(t+i, p, m) > 0;}
 void stringMatching() {
-    l = lower_bound(sa, sa+n, 0, cmp) - sa;
+    l = lower_bound(sa, sa+n, 0, cmpl) - sa;
     if (strncmp(t + sa[l], p, m) != 0) {l=h=-1; return;}
-    h = upper_bound(sa, sa+n, 0, cmp) - sa;
+    h = upper_bound(sa, sa+n, 1, cmph) - sa;
     if (strncmp(t + sa[h], p, m) != 0) h--;
 }
 
@@ -42,11 +43,12 @@ int main() {
     n = (int)strlen(fgets(t, N, stdin));
     t[n-1] = '$';
     buildSA();
-    printf("n=%d\n\n", n);
     for (int i = 0; i < n; i++) printf("%2d\t%s\n", sa[i], t + sa[i]);
-
-    while (m = (int)strlen(fgets(p, N, stdin)), m) {
+    while (m = (int)strlen(fgets(p, N, stdin))-1, m) {
+        p[m] = '\0';
+        printf("m = %d\n", m);
         stringMatching();
+        printf("%d %d\n", l, h);
         if (l != -1 && h != -1) {
             printf("%s found, SA [%d..%d] of %s\n", p, l, h, t);
             printf("They are:\n");
