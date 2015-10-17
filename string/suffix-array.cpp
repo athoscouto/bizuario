@@ -28,16 +28,32 @@ void buildSA() {
 }
 
 
-char p[N];
-int m, l, h;
+char p[N]; // pattern to be found
+int m, l, h; // pattern lenght, lower bound, higher bound
 bool cmpl(int i, int ign) {return strncmp(t+i, p, m) < 0;}
 bool cmph(int ign, int i) {return strncmp(t+i, p, m) > 0;}
+// Return all matches. They are in the range ra[l...h]
 void stringMatching() {
     l = lower_bound(sa, sa+n, 0, cmpl) - sa;
     if (strncmp(t + sa[l], p, m) != 0) {l=h=-1; return;}
     h = upper_bound(sa, sa+n, 1, cmph) - sa;
     if (strncmp(t + sa[h], p, m) != 0) h--;
 }
+
+int phi[N], lcp[N], plcp[N];
+void LCP() {
+    int i, L;
+    phi[sa[0]] = -1;
+    for(i=1; i<n; ++i) phi[sa[i]] = sa[i-1];
+    for(i=L=0; i<n; ++i) {
+        if (phi[i] == -1) {plcp[i] = 0; continue;}
+        while (t[i+L] == t[phi[i]+L]) ++L;
+        plcp[i] = L;
+        L = max(L-1, 0);
+    }
+    for(i=0; i<n; ++i) lcp[i] = plcp[sa[i]];
+}
+
 
 int main() {
     n = (int)strlen(fgets(t, N, stdin));
