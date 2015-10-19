@@ -13,22 +13,25 @@
 // present at that point.
 
 // More on: http://www.geeksforgeeks.org/z-algorithm-linear-time-pattern-searching-algorithm/
+#include <bits/stdc++.h>
+using namespace std;
 
 const int N = 1e7+1;
-char s[N], z[N];
+int n;
+string s, z;
 
 void build_z() {
     int l=0, r=0;
-    for(int i=0; i<N; ++i) {
+    for(int i=0; i<n; ++i) {
         if (i > r) {
-            l = r = i;
-            while(r+1 < N && s[r+1] == s[r-l+1]) ++r;
-            z[i] = r - l + 1;
+            l = r = i, z[i] = 0;
+            while(r < n && s[r] == s[r-l]) ++r, ++z[i];
+            --r;
         } else {
             if (z[i-l] < r - i + 1) z[i] = z[i-l];
             else {
                 l = i;
-                while(r+1 < N && s[r+1] == s[r-l+1]) ++r;
+                while(r+1 < n && s[r+1] == s[r-l+1]) ++r;
                 z[i] = r - l + 1;
             }
         }
