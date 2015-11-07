@@ -11,6 +11,9 @@ int mdc(int a, int b)
 
     return mdc( (a > b) ? b : a, (a > b) ? (a % b) : (b % a) );
 }
+int mdcnaum(int a,int b){
+    return b?mdcnaum(b,a%b):a;
+}   
 int main()
 {
     int m,n;
