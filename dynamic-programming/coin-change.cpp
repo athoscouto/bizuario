@@ -1,10 +1,11 @@
 /*
  * Coin Change
+ * Top-down DP
  */
 #include <bits/stdc++.h>
 using namespace std;
 
-const int INF = 1e9+7;
+const int INF = 2e9;
 const int N = 1e7;
 
 vector<int> coins;
