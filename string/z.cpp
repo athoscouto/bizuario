@@ -17,8 +17,8 @@
 using namespace std;
 
 const int N = 1e7+1;
-int n;
-string s, z;
+int n, z;
+string s;
 
 void build_z() {
     int l=0, r=0;

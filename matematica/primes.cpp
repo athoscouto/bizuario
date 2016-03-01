@@ -1,22 +1,20 @@
-#include <bits/stdc++.h>
-#define LIMIT 200
-using namespace std;
-bitset<LIMIT> bs;
-vector<int> primes;
+#include <iostream>
+#include <vector>
+#include <bitset>
 
-void makeprimes(){
-    bs.set();
-    bs[0] = bs[1] = 0;
-    for(int i = 2; i < LIMIT; i++) if( bs[i] ){
-        for(int j= i * i; j <= LIMIT ;j+=i) bs[j] = 0;
-        primes.push_back(i);
-    }
+using namespace std;
+
+const int N = 1e7+1;
+bool bs[N];
+
+void sieve(){
+    for(int i = 2; i < N; i++) if(!bs[i]) for(int j = i*i; j <= N; j+=i) bs[j] = 1;
 }
 
-bool isPrime(int i){ return bs[i];}
+int mdc(int a,int b) {return b ? mdc(b, a % b) : a;}
 
 int main(){
-    makeprimes();
+    sieve();
     int size = primes.size();
     for(int i = 0; i < size; i++){
         cout << primes[i] << endl;

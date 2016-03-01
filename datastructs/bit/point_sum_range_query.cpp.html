@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>~/git/bizuario/datastructs/bit/point_sum_range_query.cpp.html</title>
+<meta name="Generator" content="Vim/7.3">
+<meta name="plugin-version" content="vim7.3_v6">
+<meta name="syntax" content="cpp">
+<meta name="settings" content="no_pre">
+</head>
+<body bgcolor="#ffffff" text="#000000">
+<font face="monospace">
+<font color="#c000c0">#include&nbsp;</font><font color="#c00000">&lt;cstdio&gt;</font><br>
+<font color="#804000">using</font>&nbsp;<font color="#008000">namespace</font>&nbsp;std;<br>
+<br>
+<font color="#008000">const</font>&nbsp;<font color="#008000">int</font>&nbsp;N =&nbsp;<font color="#c00000">1e6</font>+<font color="#c00000">1</font>;<br>
+<font color="#008000">int</font>&nbsp;f[N+<font color="#c00000">1</font>], a[N+<font color="#c00000">1</font>], n;<br>
+<br>
+<font color="#008000">void</font>&nbsp;build() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#804000">for</font>(<font color="#008000">int</font>&nbsp;i=<font color="#c00000">1</font>; i&lt;=n; ++i) f[i] = a[i] + f[i-<font color="#c00000">1</font>];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#804000">for</font>(<font color="#008000">int</font>&nbsp;i=n; i&gt;<font color="#c00000">0</font>; --i) f[i] -= f[i - (i&amp;-i)];<br>
+}<br>
+<br>
+<font color="#008000">void</font>&nbsp;update(<font color="#008000">int</font>&nbsp;i,&nbsp;<font color="#008000">int</font>&nbsp;v) {<font color="#804000">while</font>(i&lt;=n) f[i] += v, i += i&amp;-i;}<br>
+<br>
+<font color="#008000">int</font>&nbsp;query(<font color="#008000">int</font>&nbsp;i) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#008000">int</font>&nbsp;s =&nbsp;<font color="#c00000">0</font>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#804000">while</font>(i) s += f[i], i-= i&amp;-i;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#804000">return</font>&nbsp;s;<br>
+}<br>
+<br>
+</font>
+</body>
+</html>
